@@ -21,21 +21,26 @@ class Players {
         this.velocity = velocity
         this.height = 50
         this.color = 'black'
+        const playerImg = new Image();
+        playerImg.addEventListener('load', () => {
+            this.playerImg = playerImg;
+        })
+        playerImg.src = './images/player.png'
     }
-    //     const playerImg = new Image();
-    //     playerImg.addEventListener('load', () => {
-    //         this.playerImg = playerImg = playerImg;
-    //         this.draw();
-    //     })
-    //     playerImg.src = './images/player.png'
-    // }
+        
+    
 
 
     draw(){
-        ctx.fillStyle = this.color
-        ctx.fillRect(this.position.x, this.position.y, 50, this.height)
-
+        // ctx.fillStyle = this.color
+        // ctx.fillRect(this.position.x, this.position.y, 50, this.height)
+        if(this.playerImg){
+            ctx.drawImage(this.playerImg, this.position.x, this.position.y, 50, this.height)
+        }
+        
     }
+
+
 
     // draw(){
         
@@ -122,8 +127,12 @@ window.addEventListener('keyup', (event) => {
   
        pickColor(){
             const colors = ['red', 'blue', 'green', 'yellow']
-            const randomColor = colors[Math.floor(Math.random() * colors.length)]
-            
+            let randomColor = colors[Math.floor(Math.random() * colors.length)]
+            if(randomColor == this.color){
+                while(randomColor == this.color){
+                    randomColor = colors[Math.floor(Math.random() * colors.length)]
+                }
+            }
             this.color = randomColor
             
         }
@@ -188,7 +197,7 @@ let animationFrameId;
         
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-        if (framecount % 50 === 0) {
+        if (framecount % (60 - score * 5) === 0) {
             cubePlayer1.pickColor();
         }
 
@@ -204,9 +213,11 @@ let animationFrameId;
         Player1.update()
 
         
+
         
         
-        if (score === 2){
+        
+        if (score === 5){
             canvas.style.display = 'none'
             winElement.style.display = "block"
             cancelAnimationFrame(animationFrameId)
