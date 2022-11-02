@@ -13,13 +13,13 @@ let winElement = document.querySelector('#endGame')
 let restartElement = document.querySelector('#restart')
 
 
-const gravity = 2.0
+const gravity = 4.0
 
 class Players {
     constructor({position, velocity}){
         this.position = position
         this.velocity = velocity
-        this.height = 50
+        this.height = 100
         this.color = 'black'
         const playerImg = new Image();
         playerImg.addEventListener('load', () => {
@@ -32,21 +32,15 @@ class Players {
 
 
     draw(){
-        // ctx.fillStyle = this.color
-        // ctx.fillRect(this.position.x, this.position.y, 50, this.height)
+        
         if(this.playerImg){
-            ctx.drawImage(this.playerImg, this.position.x, this.position.y, 50, this.height)
+            ctx.drawImage(this.playerImg, this.position.x, this.position.y, 125, this.height)
         }
         
     }
 
 
 
-    // draw(){
-        
-    //     ctx.drawImage(this.playerImg, this.position.x, this.position.y, 50, this.height)
-
-    // }
     update(){
         this.draw()
 
@@ -54,7 +48,7 @@ class Players {
         
         this.position.y += this.velocity.y
 
-        if(this.position.y + this.height + this.velocity.y >= canvas.height){
+        if(this.position.y + this.height + this.velocity.y - 20 >= canvas.height){
             this.velocity.y = 0
         } else this.velocity.y += gravity
     }
@@ -65,8 +59,8 @@ class Players {
 
 const Player1 = new Players({
     position: {
-    x: 375,
-    y: 600
+    x: 305,
+    y: 575
 },
 velocity: {
     x: 0,
@@ -85,7 +79,7 @@ const myKeyObj = {
 window.addEventListener('keydown', (event) => {
     switch (event.code){
         case 'Space':
-            Player1.velocity.y -= 19.3
+            Player1.velocity.y -= 26.3
             break
     }
 
@@ -139,8 +133,8 @@ window.addEventListener('keyup', (event) => {
 
         collitionCheck(obstacle){
             if (
-                this.x < obstacle.position.x + 50 &&
-                this.x + 50 > obstacle.position.x &&
+                this.x < obstacle.position.x + 125 &&
+                this.x + 125 > obstacle.position.x &&
                 this.y < obstacle.position.y + obstacle.height &&
                 this.height + this.y > obstacle.position.y
               ) {
@@ -197,7 +191,7 @@ let animationFrameId;
         
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-        if (framecount % (60 - score * 5) === 0) {
+        if (framecount % (60 - score * 7.5) === 0) {
             cubePlayer1.pickColor();
         }
 
