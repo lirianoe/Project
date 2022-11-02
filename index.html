@@ -8,12 +8,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="score">
-    Score = <span>0</span>
+    <div>
+        <h1>Color Jump</h1>
+    </div>
+    <div id="score"><h2>
+    Score = <span>0</span></h2>
 </div>
-    <canvas id="game" width="800" height="650"></canvas>
 
-
+ <div>
+    <canvas id="game" width="800" height="650"></canvas></div>
+ 
+    <div id="endGame" style="display: none;">
+    <h2>You won!</h2>
+    <h3>Now you're a Painter</h3>
+    <button id="restart">Restart</button>
+</div>
     <script src = 'index.js'></script>
 </body>
 </html>

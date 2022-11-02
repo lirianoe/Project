@@ -3,9 +3,15 @@ const ctx = canvas.getContext('2d');
 
 
 
-//ctx.fillRect(0, 0, canvas.width, canvas.height);
-let scoreElement = document.querySelector('.score span');
+
+let scoreElement = document.querySelector('#score span');
 let score = 0;
+
+let winElement = document.querySelector('#endGame')
+
+
+let restartElement = document.querySelector('#restart')
+
 
 const gravity = 2.0
 
@@ -16,12 +22,26 @@ class Players {
         this.height = 50
         this.color = 'black'
     }
+    //     const playerImg = new Image();
+    //     playerImg.addEventListener('load', () => {
+    //         this.playerImg = playerImg = playerImg;
+    //         this.draw();
+    //     })
+    //     playerImg.src = './images/player.png'
+    // }
+
 
     draw(){
         ctx.fillStyle = this.color
         ctx.fillRect(this.position.x, this.position.y, 50, this.height)
 
     }
+
+    // draw(){
+        
+    //     ctx.drawImage(this.playerImg, this.position.x, this.position.y, 50, this.height)
+
+    // }
     update(){
         this.draw()
 
@@ -40,7 +60,7 @@ class Players {
 
 const Player1 = new Players({
     position: {
-    x: 400,
+    x: 375,
     y: 600
 },
 velocity: {
@@ -101,7 +121,7 @@ window.addEventListener('keyup', (event) => {
           }
   
        pickColor(){
-            const colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'aqua', 'fuchsia', 'lime', 'navy']
+            const colors = ['red', 'blue', 'green', 'yellow']
             const randomColor = colors[Math.floor(Math.random() * colors.length)]
             
             this.color = randomColor
@@ -117,18 +137,13 @@ window.addEventListener('keyup', (event) => {
               ) {
                 return true                
               } else {
-                // No collision
                 return false
               }
         }
           }
 
 
-     let cubePlayer1 = new Cubes(403, 450, 45, 50);
-     
-     let colorForCube = ''
-  
-
+     let cubePlayer1 = new Cubes(378, 450, 45, 50);
 
 // cube with color
 
@@ -138,9 +153,7 @@ window.addEventListener('keyup', (event) => {
             this.y = y;
             this.width = width;
             this.height = height;
-            this.color = 'orange'
-           
-            
+            this.color = 'yellow'       
             
      }
   
@@ -151,38 +164,31 @@ window.addEventListener('keyup', (event) => {
           }
 
         optionColor(){
-            const colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'aqua', 'fuchsia', 'lime', 'navy']
+            const colors = ['red', 'blue', 'green', 'yellow']
             const randomColor = colors[Math.floor(Math.random() * colors.length)]
             
             this.color = randomColor
-            
-            // let differentColors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple', 'aqua', 'fuchsia', 'lime', 'navy']
-            // for (let i = 0; i < differentColors; i++){
-            //     this.color = differentColors[i + 1] 
-            // }
          
         }
     
      }
     
-        
-
-     
-     let block = new Obstacles(325, 200, 200, 100,);
+          let block = new Obstacles(300, 200, 200, 100,);
  
-    //block.draw();
+    
     
 
      
 
 let framecount = 0
+let animationFrameId;
       function animate(){
-        framecount+++
-        window.requestAnimationFrame(animate)
+        framecount++
+        animationFrameId = window.requestAnimationFrame(animate)
         
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-        if (framecount % 60 === 0) {
+        if (framecount % 50 === 0) {
             cubePlayer1.pickColor();
         }
 
@@ -190,26 +196,35 @@ let framecount = 0
             console.log('match')
             block.optionColor()
             score += 1
-            scoreElement.innerText = `${score}`
-        }
+            scoreElement.innerHTML = `${score}`
+        }    
 
-        //  if (){
-        //     block.optionColor()
-        // }
-        
-        
-
-        cubePlayer1.draw();
-        
-        
-
-       
+        cubePlayer1.draw(); 
         block.draw();
         Player1.update()
+
+        
+        
+        
+        if (score === 2){
+            canvas.style.display = 'none'
+            winElement.style.display = "block"
+            cancelAnimationFrame(animationFrameId)
+    }
 
     }
     
     animate()
 
+    restartElement.addEventListener('click', () => {
+        score = 0
+        scoreElement.innerHTML = `${score}`
+        framecount = 0
+        canvas.style.display = 'inline'
+            winElement.style.display = "none"
+        animate()
+    })
+
+   
 
    
