@@ -10,7 +10,7 @@ let score = 0;
 let winElement = document.querySelector('#endGame')
 let restartElement = document.querySelector('#restart')
 
-let backgroundAudio = new Audio('./audio/backgroundSound.mp3')
+//let backgroundAudio = new Audio('./audio/backgroundSound.mp3')
 let dingSound = new Audio('./audio/dingSound.mp3')
 let winSound = new Audio('./audio/winSound.mp3')
 
@@ -19,13 +19,13 @@ let instructionBttn = document.querySelector('#instructionButton')
 let instructText = document.querySelector('#instructionText')
 let goBackBttn = document.querySelector('#goBackButton')
 
-const gravity = 4.0
+const gravity = 5.0
 
 class Players {
     constructor({position, velocity}){
         this.position = position
         this.velocity = velocity
-        this.height = 100
+        this.height = 140
         this.color = 'black'
         const playerImg = new Image();
         playerImg.addEventListener('load', () => {
@@ -40,7 +40,7 @@ class Players {
     draw(){
         
         if(this.playerImg){
-            ctx.drawImage(this.playerImg, this.position.x, this.position.y, 125, this.height)
+            ctx.drawImage(this.playerImg, this.position.x, this.position.y, 140, this.height)
         }
         
     }
@@ -66,7 +66,7 @@ class Players {
 const Player1 = new Players({
     position: {
     x: 375,
-    y: 575
+    y: 545
 },
 velocity: {
     x: 0,
@@ -85,7 +85,7 @@ const myKeyObj = {
 window.addEventListener('keydown', (event) => {
     switch (event.code){
         case 'Space':
-            Player1.velocity.y -= 26.3
+            Player1.velocity.y -= 29
             break
     }
 
@@ -139,8 +139,8 @@ window.addEventListener('keyup', (event) => {
 
         collitionCheck(obstacle){
             if (
-                this.x < obstacle.position.x + 125 &&
-                this.x + 125 > obstacle.position.x &&
+                this.x < obstacle.position.x + 75 &&
+                this.x + 125 > (obstacle.position.x + 50) + 50 &&
                 this.y < obstacle.position.y + obstacle.height &&
                 this.height + this.y > obstacle.position.y
               ) {
@@ -152,7 +152,7 @@ window.addEventListener('keyup', (event) => {
           }
 
 
-     let cubePlayer1 = new Cubes(378, 450, 45, 50);
+     let cubePlayer1 = new Cubes(378, 400, 45, 50);
 
 // cube with color
 
@@ -182,7 +182,7 @@ window.addEventListener('keyup', (event) => {
     
      }
     
-          let block = new Obstacles(300, 200, 200, 100,);
+          let block = new Obstacles(300, 175, 200, 100,);
  
     
     
