@@ -8,10 +8,16 @@ let scoreElement = document.querySelector('#score span');
 let score = 0;
 
 let winElement = document.querySelector('#endGame')
-
-
 let restartElement = document.querySelector('#restart')
 
+let backgroundAudio = new Audio('./audio/backgroundSound.mp3')
+let dingSound = new Audio('./audio/dingSound.mp3')
+let winSound = new Audio('./audio/winSound.mp3')
+
+let startBttn = document.querySelector('#startButton')
+let instructionBttn = document.querySelector('#instructionButton')
+let instructText = document.querySelector('#instructionText')
+let goBackBttn = document.querySelector('#goBackButton')
 
 const gravity = 4.0
 
@@ -59,7 +65,7 @@ class Players {
 
 const Player1 = new Players({
     position: {
-    x: 305,
+    x: 375,
     y: 575
 },
 velocity: {
@@ -191,7 +197,9 @@ let animationFrameId;
         
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-        if (framecount % (60 - score * 7.5) === 0) {
+       
+
+        if (framecount % (60 - score * 8) === 0) {
             cubePlayer1.pickColor();
         }
 
@@ -200,6 +208,7 @@ let animationFrameId;
             block.optionColor()
             score += 1
             scoreElement.innerHTML = `${score}`
+            dingSound.play()
         }    
 
         cubePlayer1.draw(); 
@@ -215,11 +224,36 @@ let animationFrameId;
             canvas.style.display = 'none'
             winElement.style.display = "block"
             cancelAnimationFrame(animationFrameId)
+            winSound.play()
+            
     }
 
     }
-    
-    animate()
+
+
+
+    startBttn.addEventListener('click', () => {
+        animate()
+        startBttn.style.display = "none"
+        instructionBttn.style.display = "none"
+    })
+
+    instructionBttn.addEventListener('click', () => {
+        instructText.style.display = "inline"
+        startBttn.style.display = "none"
+        instructionBttn.style.display = "none"
+        goBackBttn.style.display = "inline"
+
+
+    })
+   
+
+   goBackBttn.addEventListener('click', () => {
+    startBttn.style.display = 'inline'
+    instructionBttn.style.display = "inline"
+    goBackBttn.style.display = "none"
+    instructText.style.display = "none"
+   })
 
     restartElement.addEventListener('click', () => {
         score = 0
@@ -230,6 +264,6 @@ let animationFrameId;
         animate()
     })
 
+  
    
-
    

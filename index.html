@@ -8,21 +8,39 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
+    <div id="title">
         <h2>Color Jump</h2>
     </div>
     <div id="score"><h2>
     Score = <span>0</span></h2>
 </div>
 
+
+
+<div id="instructionText" style="display: none;">
+    <p>Use 'Space' to jump once the right color comes up on the cube.</p>
+        <p>you jump on the right time and the colors match, you get a point.</p>
+        <p>To win you have to get to 5 points.</p>
+        <p>Take in consideration, every time you win a point, the timing of the cube gets faster.
+        </p>
+</div>
+
+<button id="goBackButton" style="display: none;">Back</button>
+
+<button id="instructionButton">How To Play</button>
+
+<button id="startButton"> Start Game</button>
  <div>
+    
     <canvas id="game" width="800" height="650"></canvas></div>
  
     <div id="endGame" style="display: none;">
     <h2>You won!</h2>
+    
     <h3>Now you're a Painter</h3>
     <button id="restart">Restart</button>
 </div>
+
     <script src = 'index.js'></script>
 </body>
 </html>
